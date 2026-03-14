@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Checkout - Choco Creation</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-10">
+
+<h1 class="text-3xl font-bold mb-6">Checkout</h1>
+
+<div class="grid grid-cols-2 gap-10">
+
+<!-- CART SUMMARY -->
+
+<div class="bg-white p-6 rounded shadow">
+
+<h2 class="text-xl font-bold mb-4">Order Summary</h2>
+
+<div id="checkoutItems"></div>
+
+<hr class="my-4">
+
+<p id="totalItems" class="text-lg font-semibold"></p>
+
+<p id="itemsTotal" class="text-lg"></p>
+
+<p id="deliveryCharge" class="text-lg"></p>
+
+<h2 id="grandTotal" class="text-2xl font-bold"></h2>
+
+</div>
+
+
+<!-- CUSTOMER DETAILS -->
+
+<form id="orderForm" class="bg-white p-6 rounded shadow">
+
+<h2 class="text-xl font-bold mb-4">Customer Details</h2>
+
+<input id="name" type="text" placeholder="Full Name"
+class="w-full border p-2 mb-3 rounded" required>
+
+<input id="phone"
+type="tel"
+placeholder="Phone Number"
+maxlength="10"
+class="w-full border p-2 mb-3 rounded"
+required>
+
+<textarea id="address" placeholder="Delivery Address"
+class="w-full border p-2 mb-3 rounded" required></textarea>
+
+
+<select class="w-full border p-2 mb-4 rounded">
+<option>Cash on Delivery</option>
+<option>UPI</option>
+<option>Paytm</option>
+<option>Google Pay</option>
+</select>
+
+
+<button type="submit"
+class="bg-green-500 text-white px-6 py-3 rounded">
+Place Order
+</button>
+
+</form>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* check cart before checkout page loads */
+if(cart.length === 0){
+alert("Your cart is empty!");
+window.location.href="cart.html";
+}
+
+const container = document.getElementById("checkoutItems");
+
+let total = 0;
+let itemCount = cart.length;
+
+cart.forEach(item=>{
+
+const div=document.createElement("div");
+
+div.className="flex justify-between mb-2";
+
+div.innerHTML=`
+
+<span>${item.name}</span>
+
+<span>₹${item.price}</span>
+
+`;
+
+container.appendChild(div);
+
+let price = parseInt(item.price.replace(/[^\d]/g, "")) || 0;
+total += price;
+
+});
+
+let delivery = 20;
+
+let grandTotal = total + delivery;
+
+document.getElementById("totalItems").innerText = "Items: " + cart.length;
+
+document.getElementById("itemsTotal").innerText = "Items Total: ₹" + total;
+
+document.getElementById("deliveryCharge").innerText = "Delivery Charge: ₹" + delivery;
+
+document.getElementById("grandTotal").innerText = "Grand Total: ₹" + grandTotal;
+
+
+document.getElementById("orderForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+if(cart.length === 0){
+alert("Your cart is empty!");
+return;
+}
+
+let name = document.getElementById("name").value;
+let phone = document.getElementById("phone").value;
+let address = document.getElementById("address").value;
+
+phone = phone.replace(/\D/g,""); // remove spaces
+
+if(phone.length !== 10){
+alert("Please enter a valid 10 digit phone number");
+return;
+}
+
+if(name === "" || phone === "" || address === ""){
+alert("Please fill all delivery details!");
+return;
+}
+
+alert("Order Placed Successfully!");
+
+localStorage.removeItem("cart");
+
+window.location.href="order-success.html";
+
+});
+
+const phoneInput = document.getElementById("phone");
+
+phoneInput.addEventListener("input", function(){
+
+// remove non-numbers
+let value = this.value.replace(/\D/g,"");
+
+// limit to 10 digits
+value = value.substring(0,10);
+
+this.value = value;
+
+});
+
+</script>
+</body>
+</html>
