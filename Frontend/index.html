@@ -512,6 +512,14 @@
     />
 
     <input
+        type="text"
+        id="ProductUnit"
+        placeholder="Unit (kg, ltr, packet etc)"
+        class="w-full border p-2 rounded"
+        required
+        />
+
+    <input
       type="text"
       id="ProductCategory"
       placeholder="Category"
@@ -765,12 +773,13 @@ displayProducts(filtered);
   e.preventDefault();
 
   const product = {
-    name: document.getElementById("ProductName").value,
-    category: document.getElementById("ProductCategory").value,
-    price: document.getElementById("ProductPrice").value,
-    image: document.getElementById("ProductImage").value,
-    description: document.getElementById("ProductDescription").value
-  };
+  name: document.getElementById("ProductName").value,
+  category: document.getElementById("ProductCategory").value,
+  price: document.getElementById("ProductPrice").value,
+  unit: document.getElementById("ProductUnit").value,
+  image: document.getElementById("ProductImage").value,
+  description: document.getElementById("ProductDescription").value
+    };
 
   await fetch("https://choco-backend-thzl.onrender.com/api/products", {
     method: "POST",

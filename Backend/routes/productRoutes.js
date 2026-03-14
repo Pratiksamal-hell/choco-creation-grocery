@@ -17,23 +17,21 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
 
-    const { name, category, price, image, description } = req.body;
-
-    const newProduct = new Product({
-      name,
-      category,
-      price,
-      image,
-      description
+    const product = new Product({
+      name: req.body.name,
+      category: req.body.category,
+      description: req.body.description,
+      price: req.body.price,
+      image: req.body.image
     });
 
-    const savedProduct = await newProduct.save();
+    const savedProduct = await product.save();
 
     res.status(201).json(savedProduct);
 
   } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: "Failed to add product" });
+    console.error("Error adding product:", error);
+    res.status(400).json({ message: "Failed to add product", error });
   }
 });
 
