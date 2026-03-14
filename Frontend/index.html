@@ -500,62 +500,6 @@
         </div>
     </footer>
     <section class="max-w-xl mx-auto my-8 p-6 bg-white rounded-lg shadow">
-  <h2 class="text-xl font-bold mb-4">Add Product</h2>
-
-  <form id="productForm" class="space-y-4">
-    <input
-      type="text"
-      id="ProductName"
-      placeholder="Product Name"
-      class="w-full border p-2 rounded"
-      required
-    />
-
-    <input
-        type="text"
-        id="ProductUnit"
-        placeholder="Unit (kg, ltr, packet etc)"
-        class="w-full border p-2 rounded"
-        required
-        />
-
-    <input
-      type="text"
-      id="ProductCategory"
-      placeholder="Category"
-      class="w-full border p-2 rounded"
-      required
-    />
-
-    <input
-      type="text"
-      id="ProductPrice"
-      placeholder="Price"
-      class="w-full border p-2 rounded"
-      required
-    />
-
-    <input
-      type="text"
-      id="ProductImage"
-      placeholder="Image URL"
-      class="w-full border p-2 rounded"
-      required
-    />
-
-    <textarea
-      id="ProductDescription"
-      placeholder="Description"
-      class="w-full border p-2 rounded"
-      required
-    ></textarea>
-
-    <button
-      type="submit"
-      class="bg-primary text-white px-4 py-2 rounded">
-      Add Product
-    </button>
-  </form>
 </section>
 
    <script>
@@ -769,32 +713,6 @@ displayProducts(filtered);
             
         });
 
-        document.getElementById("productForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const product = {
-  name: document.getElementById("ProductName").value,
-  category: document.getElementById("ProductCategory").value,
-  price: document.getElementById("ProductPrice").value,
-  unit: document.getElementById("ProductUnit").value,
-  image: document.getElementById("ProductImage").value,
-  description: document.getElementById("ProductDescription").value
-    };
-
-  await fetch("https://choco-backend-thzl.onrender.com/api/products", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(product)
-  });
-
-  alert("Product added successfully!");
-
-  document.getElementById("productForm").reset();
-
-  loadProducts(); // refresh product list
-});
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
