@@ -251,8 +251,10 @@
             </div>
             
             <!-- Product Grid -->
-            <div id="productsContainer"></div>
-        </div>
+            <div id="productsContainer" class="text-center py-10">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mx-auto"></div>
+                <p class="text-gray-500 mt-3">Loading fresh groceries...</p>
+                </div>
     </section>
 
     <!-- Features Section -->
@@ -517,9 +519,7 @@ allProducts = await response.json();
 const products = allProducts;
 
 const container = document.getElementById("productsContainer");
-
-container.innerHTML = "";
-
+container.innerHTML = '<p class="text-gray-500 text-center py-6">Loading products...</p>';
 displayProducts(allProducts);
 
 } 
@@ -590,7 +590,7 @@ container.appendChild(grid);
 function filterProducts(category){
 
 if(category === "All"){
-displayProducts(allProducts);
+setTimeout(() => displayProducts(allProducts), 300);
 return;
 }
 
