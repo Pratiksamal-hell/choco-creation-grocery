@@ -80,7 +80,7 @@
                     <button class="md:hidden text-gray-700" id="mobile-menu-button">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
-                    <a href="cart.html" class="relative hidden md:block bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-primary-dark transition-colors duration-200">
+                    <a href="cart.html" class="relative bg-primary text-white px-4 py-2 rounded-full"></a>
 
                         <i class="fas fa-shopping-cart mr-2"></i>Cart
 
@@ -532,8 +532,7 @@ container.innerHTML = "";
 
 const grid = document.createElement("div");
 
-grid.className = "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
-
+grid.className = "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2";
 products.forEach(product => {
 
 const card = document.createElement("div");
@@ -542,9 +541,7 @@ card.className = "product-card bg-white rounded-2xl shadow-sm overflow-hidden";
 
 card.innerHTML = `
 
-<img loading="lazy" src="${product.image}" class="w-full h-36 sm:h-40 md:h-48 object-cover">
-<div class="p-4">
-
+<img loading="lazy" src="${product.image}" class="w-full h-32 sm:h-40 md:h-48 object-cover rounded-lg">
 <h3 class="font-bold text-lg">${product.name}</h3>
 
 <p class="text-gray-600 text-sm line-clamp-2">${product.description}</p>
@@ -558,17 +555,17 @@ card.innerHTML = `
 <div class="flex items-center gap-2">
 
 <button onclick="changeQty('${product._id}',-1)" 
-class="bg-gray-200 px-2 rounded">-</button>
+class="bg-gray-200 px-3 py-1 rounded text-lg">-</button>
 
 <span id="qty-${product._id}">1</span>
 
 <button onclick="changeQty('${product._id}',1)" 
-class="bg-gray-200 px-2 rounded">+</button>
+class="bg-gray-200 px-3 py-1 rounded text-lg">+</button>
 
 </div>
 
 <button onclick="addToCart('${product._id}','${product.name}','${product.price}','${product.image}')"
-class="bg-primary-light text-primary px-3 py-2 text-sm rounded w-full">
+class="bg-primary text-white py-2 rounded-lg w-full">
 
 <i class="fas fa-cart-plus"></i> Add
 
