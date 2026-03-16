@@ -7,20 +7,26 @@
 
 <body class="bg-gray-100 p-4 md:p-10"> 
 
-<h1 class="text-3xl font-bold mb-6">Shopping Cart</h1>
+<h1 class="text-2xl font-bold mb-6 text-center">
+🛒 Shopping Cart
+</h1>
 
 <button onclick="clearCart()" class="bg-red-600 text-white px-4 py-2 rounded mb-4">
 Clear Cart
 </button>
 
 <div id="cartItems" class="space-y-4"></div>
-<h2 id="cartTotal" class="text-2xl font-bold mt-6 text-center sm:text-left"></h2>
+<h2 id="cartTotal" class="text-2xl font-bold mt-6 text-center"></h2>
 
 <div class="fixed bottom-0 left-0 w-full bg-white p-4 shadow-lg">
+
 <button onclick="goToCheckout()"
 class="bg-green-500 text-white py-3 rounded-lg w-full text-lg font-semibold">
+
 Proceed to Checkout
+
 </button>
+
 </div>
 
 <script>
@@ -41,36 +47,38 @@ const div=document.createElement("div");
 
 div.className="bg-white p-4 rounded shadow flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4";
 
-div.innerHTML=`
+div.innerHTML = `
 
-<div class="flex flex-col sm:flex-row gap-4 items-center w-full">
+<div class="flex items-center gap-4 w-full">
 
-<img src="${item.image}" class="w-16 h-16 object-cover rounded">
+<img src="${item.image}" class="w-16 h-16 rounded-lg object-cover">
 
-<div>
-<h2 class="font-bold">${item.name}</h2>
+<div class="flex-1">
 
-<div class="flex items-center gap-2 mt-2">
+<h2 class="font-semibold text-lg">${item.name}</h2>
+
+<p class="text-green-600 font-bold">₹${item.price}</p>
+
+<div class="flex items-center gap-3 mt-2">
 
 <button onclick="decreaseQty(${index})"
-class="bg-gray-300 px-3 py-1 rounded text-lg">-</button>
+class="bg-gray-200 px-3 py-1 rounded text-lg">-</button>
 
-<span>${item.quantity}</span>
+<span class="font-medium">${item.quantity}</span>
 
 <button onclick="increaseQty(${index})"
-class="bg-gray-300 px-3 py-1 rounded text-lg">+</button>
+class="bg-gray-200 px-3 py-1 rounded text-lg">+</button>
 
-</div>
-
-<p class="mt-2">₹${item.price}</p>
 </div>
 
 </div>
 
 <button onclick="removeItem(${index})"
-class="bg-red-500 text-white px-4 py-2 rounded w-full sm:w-auto">
+class="bg-red-500 text-white px-4 py-2 rounded-lg">
 Remove
 </button>
+
+</div>
 
 `;
 
