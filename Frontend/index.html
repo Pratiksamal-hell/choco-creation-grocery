@@ -439,9 +439,12 @@ class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg
                         <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200">
+                        <a href="https://www.instagram.com/ig___jawed?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"
+                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200">
+
                             <i class="fab fa-instagram"></i>
-                        </a>
+
+                            </a>
                         <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200">
                             <i class="fab fa-youtube"></i>
                         </a>
@@ -501,7 +504,8 @@ class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-phone text-primary mr-3"></i>
-                            <span>8249769962</span>
+                            <span>7846920017 7894723938 7978819240
+                            </span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-envelope text-primary mr-3"></i>
@@ -513,6 +517,9 @@ class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg
             
             
         </div>
+        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+Made with ❤️ by <span class="text-primary font-semibold">Pratik Samal</span>
+</div>
     </footer>
     <section class="max-w-xl mx-auto my-8 p-6 bg-white rounded-lg shadow">
 </section>
@@ -647,24 +654,42 @@ displayProducts(filtered);
             
             // Form submission
             const contactForm = document.querySelector('#contact form');
+
             if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Simple form validation
-                    const name = document.getElementById('name').value;
-                    const email = document.getElementById('email').value;
-                    const message = document.getElementById('message').value;
-                    
-                    if (name && email && message) {
-                        alert('Thank you for your message! We will get back to you soon.');
-                        contactForm.reset();
-                    } else {
-                        alert('Please fill in all required fields.');
-                    }
-                });
+            contactForm.addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            if(name && email && message){
+
+            let text = `New Message From Website
+
+            Name: ${name}
+            Email: ${email}
+            Phone: ${phone}
+
+            Message:
+            ${message}`;
+
+            let whatsappURL = "https://wa.me/917978305413?text=" + encodeURIComponent(text);
+
+            window.open(whatsappURL, "_blank");
+
+            contactForm.reset();
+
             }
-            
+            else{
+            alert("Please fill all fields");
+            }
+
+            });
+            }
+                        
             // Newsletter subscription
             const subscribeButton = document.querySelector('.bg-accent');
             if (subscribeButton) {
