@@ -153,17 +153,7 @@ fetch("https://choco-backend-thzl.onrender.com/api/orders", {
 
   alert("Order Placed Successfully!");
 
-  // OPTIONAL: WhatsApp auto message
-  let text = `New Order
 
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-
-Total: ₹${grandTotal}`;
-
-  let url = "https://wa.me/917978305413?text=" + encodeURIComponent(text);
-  window.open(url, "_blank");
 
   localStorage.removeItem("cart");
 

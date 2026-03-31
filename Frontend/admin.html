@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Orders</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+<h1 class="text-3xl font-bold mb-6">All Orders</h1>
+
+<div id="orders"></div>
+
+<script>
+
+async function loadOrders(){
+
+const res = await fetch("https://choco-backend-thzl.onrender.com/api/orders");
+const orders = await res.json();
+
+let html = "";
+
+orders.forEach(order => {
+
+html += `
+<div class="bg-white p-4 rounded shadow mb-4">
+
+<p><b>Name:</b> ${order.name}</p>
+<p><b>Phone:</b> ${order.phone}</p>
+<p><b>Address:</b> ${order.address}</p>
+
+<p class="mt-2 font-semibold">Items:</p>
+
+<ul class="ml-4">
+${order.items.map(item => `<li>${item.name} x ${item.quantity}</li>`).join("")}
+</ul>
+
+<p class="mt-2 font-bold">Total: ₹${order.total}</p>
+
+</div>
+`;
+});
+
+document.getElementById("orders").innerHTML = html;
+
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
