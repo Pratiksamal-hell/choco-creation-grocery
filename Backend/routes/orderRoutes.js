@@ -1,3 +1,5 @@
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
@@ -10,8 +12,8 @@ router.post("/", async (req, res) => {
 });
 
 // GET ALL ORDERS
-router.get("/", async (req, res) => {
-  const orders = await Order.find().sort({ date: -1 });
+router.get("/", auth, async (req, res) => {
+  const orders = await Order.find();
   res.json(orders);
 });
 

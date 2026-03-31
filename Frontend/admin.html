@@ -13,9 +13,32 @@
 
 <script>
 
+const token = localStorage.getItem("token");
+
+// ❌ If not logged in
+if (!token) {
+  window.location.href = "login.html";
+}
+
+// ✅ Decode token
+const payload = JSON.parse(atob(token.split('.')[1]));
+
+// ❌ If not admin
+if (payload.role !== "admin") {
+  alert("Access denied");
+  window.location.href = "index.html";
+}
+
 async function loadOrders(){
 
-const res = await fetch("https://choco-backend-thzl.onrender.com/api/orders");
+try {
+
+const res = await fetch("https://choco-backend-thzl.onrender.com/api/orders", {
+  headers: {
+    "Authorization": token   // ✅ IMPORTANT
+  }
+});
+
 const orders = await res.json();
 
 let html = "";
@@ -39,9 +62,15 @@ ${order.items.map(item => `<li>${item.name} x ${item.quantity}</li>`).join("")}
 
 </div>
 `;
+
 });
 
 document.getElementById("orders").innerHTML = html;
+
+} catch (err) {
+  console.error(err);
+  alert("Failed to load orders");
+}
 
 }
 

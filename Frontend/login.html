@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - Choco Creation</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-green-100 to-white flex items-center justify-center h-screen">
+
+<div class="bg-white p-8 rounded-2xl shadow-xl w-80">
+
+  <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">
+    Welcome Back 👋
+  </h2>
+
+  <!-- Email -->
+  <input id="email" type="email" placeholder="Enter Email"
+    class="w-full border p-3 mb-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+
+  <!-- Password -->
+  <div class="relative">
+    <input id="password" type="password" placeholder="Enter Password"
+      class="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+    
+    <!-- Show/Hide -->
+    <span onclick="togglePassword()" 
+      class="absolute right-3 top-3 cursor-pointer text-gray-500">
+      👁
+    </span>
+  </div>
+
+  <!-- Login Button -->
+  <button id="loginBtn" onclick="login()"
+    class="bg-green-500 text-white w-full py-3 rounded-lg mt-4 font-semibold hover:bg-green-600 transition">
+    Login
+  </button>
+
+  <!-- Error Message -->
+  <p id="errorMsg" class="text-red-500 text-sm mt-3 text-center"></p>
+
+</div>
+
+<script>
+
+// ✅ Redirect if already logged in
+if(localStorage.getItem("token")){
+  window.location.href = "admin.html";
+}
+
+// 👁 Toggle password
+function togglePassword(){
+  const pass = document.getElementById("password");
+  pass.type = pass.type === "password" ? "text" : "password";
+}
+
+// 🔐 Login function
+async function login(){
+
+  const btn = document.getElementById("loginBtn");
+  const error = document.getElementById("errorMsg");
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  // basic validation
+  if(!email || !password){
+    error.innerText = "Please fill all fields";
+    return;
+  }
+
+  try {
+
+    btn.innerText = "Logging in...";
+    btn.disabled = true;
+
+    const res = await fetch("https://choco-backend-thzl.onrender.com/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if(data.token){
+
+      localStorage.setItem("token", data.token);
+
+      window.location.href = "admin.html";
+
+    } else {
+      error.innerText = data.message || "Login failed";
+    }
+
+  } catch(err){
+    console.error(err);
+    error.innerText = "Server error";
+  }
+
+  btn.innerText = "Login";
+  btn.disabled = false;
+}
+
+</script>
+
+</body>
+</html>
